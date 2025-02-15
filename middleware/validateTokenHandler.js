@@ -34,7 +34,16 @@ const validateToken= asyncHandler(async (req,res,next)=>{
                 throw new Error("User is not authorized, token is invalid or expired");
             }
             //console.log(decoded);
-            req.user = decoded.user;
+            // {
+            //     user: {
+            //       username: 'omi',
+            //       email: 'tyagiomdeep@gmail.com',
+            //       _id: '67af8cf660e1278a910b64ec'
+            //     },
+            //     iat: 1739560033,
+            //     exp: 1739560633
+            //   }
+            req.user = decoded.user;//stored user info in req.user
             next();
         });
     } 

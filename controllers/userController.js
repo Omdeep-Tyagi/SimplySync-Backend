@@ -36,7 +36,7 @@ const registerUser=asyncHandler(async(req,res)=>{
 
     
     if(user){ // if user is successfully created
-        res.status(201).json({_id: user.id,email:user.email});
+        res.status(201).json({_id: user._id,email:user.email});
     }
     else 
     {
@@ -63,13 +63,13 @@ const loginUser=asyncHandler(async(req,res)=>{
     const user = await User.findOne({email});
     if(user && (await bcrypt.compare(password, user.password))){ // firstly we are checking the user is there in db and its not undefined && then we are comparing the client password with db hashed password
         const accessToken= jwt.sign({
-            user:{ // payload
+            user:{ // payload  //after verifying the token we will get this user info in decorded.user
                 username:user.username,
                 email: user.email,
-                id: user.id,
+                _id: user._id,
             },
         }, process.env.ACCESS_TOKEN_SECRET,
-        { expiresIn:"15m"});
+        { expiresIn:"10m"});// 10 Minute
         res.status(200).json({message:"Login sucessful" ,accessToken}); 
     }else{
         res.status(401)

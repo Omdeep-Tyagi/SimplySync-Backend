@@ -5,11 +5,11 @@ const validateToken = require("../middleware/validateTokenHandler");
 
 router.use(validateToken); // making all routes as protected routes
 router.route("/")
-    .get(getContact)
+    .get(getContacts)
     .post(createContact);
   
 router.route("/:id")
-    .get(getContacts)
+    .get(getContact)
     .put(updateContact)
     .delete(deleteContact);    
 
